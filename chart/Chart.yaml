@@ -1,0 +1,5 @@
+# user_manage chart
+apiVersion: v1
+name: user_manage
+description: A Helm chart for deploying user_manage application with OPA.
+version: 0.1.0

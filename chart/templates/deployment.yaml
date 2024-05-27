@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: usermanage
+          image: saijalchauhan/swiss:v1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000
+          env:
+            - name: ADMIN_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Release.Name }}-user-tokens
+                  key: admin_token
+            - name: USER_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Release.Name }}-user-tokens
+                  key: user_token
+            - name: OPA_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Release.Name }}-opa-policies
+                  key: OPA_URL
+
+        - name: opa
+          image: {{ .Values.opa.image.repository }}
+          imagePullPolicy: IfNotPresent
+          command:
+            - "opa"
+            - "run"
+            - "--server"
+            - "/policies/policy.rego"
+          volumeMounts:
+            - name: opa-policies
+              mountPath: /policies
+          ports:
+            - containerPort: 8181
+      volumes:
+        - name: opa-policies
+          configMap:
+            name: {{ .Release.Name }}-opa-policies

@@ -1,0 +1,15 @@
+replicaCount: 1
+
+image:
+  repository: your-docker-username/my-cool-service
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  port: 8000
+
+opa:
+  image:
+    repository: openpolicyagent/opa
+    tag: edge-rootless
+    pullPolicy: IfNotPresent
