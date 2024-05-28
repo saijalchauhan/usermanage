@@ -22,4 +22,7 @@ curl -H "Authorization: admin_token" http://localhost:8000/api/users
 
 
 
- docker build -t swiss:new .   
+ docker build -t saijalchauhan/swiss:new .   
+
+
+ minikube service swiss-service --url

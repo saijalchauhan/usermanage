@@ -9,17 +9,17 @@ data:
     default allow = false
 
     allow {
-        input.auth_header = "Bearer admin_token"
+        input.role = "admin"
         input.action = "create"
     }
 
     allow {
-        input.auth_header = "Bearer admin_token"
+        input.role = "admin"
         input.action = "read"
     }
 
     allow {
-        input.auth_header = "Bearer user_token"
+        input.role = "admin"
         input.action = "read"
     }
 
