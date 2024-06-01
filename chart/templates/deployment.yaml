@@ -15,7 +15,7 @@ spec:
       containers:
         - name: usermanage
           image: saijalchauhan/swiss:v1
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always #IfNotPresent
           ports:
             - containerPort: 8000
           env:
@@ -23,12 +23,12 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: {{ .Release.Name }}-user-tokens
-                  key: admin_token
+                  key: ADMIN_TOKEN
             - name: USER_TOKEN
               valueFrom:
                 secretKeyRef:
                   name: {{ .Release.Name }}-user-tokens
-                  key: user_token
+                  key: USER_TOKEN
             - name: OPA_URL
               valueFrom:
                 configMapKeyRef:

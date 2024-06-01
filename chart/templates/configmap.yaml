@@ -19,7 +19,7 @@ data:
     }
 
     allow {
-        input.role = "admin"
+        input.role = "user"
         input.action = "read"
     }
 

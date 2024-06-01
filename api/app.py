@@ -13,22 +13,18 @@ users = [
     {"name": "Somay Chauhan", "email": "somaychauhan98@gmail.com"}
 ]
 
-tokens = {"admin_token": "admin", "user_token": "user"}
-
 # Read tokens from environment variables
-# tokens = {
-#     os.getenv('ADMIN_TOKEN'): 'admin',
-#     os.getenv('USER_TOKEN'): 'user'
-# }
+tokens = {
+    'admin_token': os.getenv('ADMIN_TOKEN'),
+    'user_token': os.getenv('USER_TOKEN')
+}
 
 # Read OPA URL from environment variable
-# OPA_URL = os.getenv('OPA_URL')
-
-OPA_URL = "http://localhost:8181/v1/data/usermanage/authz"
+OPA_URL = os.getenv('OPA_URL')
 
 
 # Configure logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s: %(message)s')
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s %(levelname)s: %(message)s')
 
 
 def get_role(token):
@@ -50,6 +46,7 @@ def is_authorized(role, action):
     
     result = response.json().get("result", False)
     is_allowed = result.get("allow", False)
+    app.logger.debug('Is authorized by OPA: "%s"',is_allowed)
     return is_allowed
 
 @app.route('/api/users', methods=['GET'])
