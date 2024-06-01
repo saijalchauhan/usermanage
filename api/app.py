@@ -13,7 +13,7 @@ users = [
     {"name": "Somay Chauhan", "email": "somaychauhan98@gmail.com"}
 ]
 
-# Read tokens from environment variables
+# Dummy token to user mapping from environment variable
 tokens = {
     'admin_token': os.getenv('ADMIN_TOKEN'),
     'user_token': os.getenv('USER_TOKEN')
