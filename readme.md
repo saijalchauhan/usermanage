@@ -77,7 +77,7 @@ Read:
 curl -H "Authorization: user_token" http://<minikube-endpoint>/api/users
 ```
 
-Wrie
+Write:
 ```bash
 curl -X POST -d '{"name": "new user1", "email": "newuser1@example.com"}' -H "Authorization: admin_token" -H "Content-Type: application/json"  http://<minikube-endpoint>/api/users
 ```
