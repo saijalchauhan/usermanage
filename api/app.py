@@ -46,7 +46,7 @@ def is_authorized(role, action):
     
     result = response.json().get("result", False)
     is_allowed = result.get("allow", False)
-    app.logger.debug('Is authorized by OPA: "%s"',is_allowed)
+    app.logger.debug('`Is authorized by OPA`: "%s"',is_allowed)
     return is_allowed
 
 @app.route('/api/users', methods=['GET'])
@@ -74,14 +74,23 @@ def create_user():
         app.logger.warning('Unauthorized access attempt to create user with auth header: %s', role)
         return jsonify({"error": "User not Authorized to create user."}), 403
     
-    user = request.json
-    if "name" not in user or "email" not in user:
-        app.logger.error('Invalid input: %s', user)
-        return jsonify({"error": "Invalid Input"}), 400
+    data = request.get_json()
+    if not data or 'name' not in data or 'email' not in data:
+        return jsonify({"error": "Invalid input. 'name' and 'email' are required."}), 400
+
+    # Check for extra parameters
+    allowed_keys = {'name', 'email'}
+    if any(key not in allowed_keys for key in data):
+        return jsonify({"error": "Invalid input. Only 'name' and 'email' are allowed."}), 400
+
+    new_user = {
+        'name': data['name'],
+        'email': data['email']
+    }
     
-    users.append(user)
-    app.logger.info('User authorized to create user, User created: %s', user)
-    return jsonify(user), 201
+    users.append(new_user)
+    app.logger.info('User is authorized to create user, User created: %s', new_user)
+    return jsonify(new_user), 201
 
 
 
