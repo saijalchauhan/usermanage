@@ -39,7 +39,7 @@ def is_authorized(role, action):
             }
         }, indent=2)
         response = requests.post(OPA_URL, data=input_data)
-        app.logger.debug('Authorization check for action "%s" with auth header "%s": %s', action, role, response)
+        app.logger.debug('Authorization check for action "%s" : %s', action, response)
     except Exception as e:
         app.logger.exception("Unexpected error querying OPA.")
         abort(500)
