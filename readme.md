@@ -40,7 +40,9 @@ minikube start
 
 ### Step 1: Setup Helm Repo
  
-
-helm repo add swisscom-helm https://saijal.jfrog.io/artifactory/api/helm/swisscom-helm --username \<username> --password \<password>
-
-helm install \<release-name> swisscom-helm/user_manage --version 0.1.0 -n \<namespace>
+```bash
+helm repo add swisscom-helm https://saijal.jfrog.io/artifactory/api/helm/swisscom-helm --username <username> --password <password>
+```
+```bash
+helm install <release-name> swisscom-helm/user_manage --version 0.1.0 -n <namespace>
+```
