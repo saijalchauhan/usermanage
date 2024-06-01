@@ -14,8 +14,8 @@ spec:
     spec:
       containers:
         - name: usermanage
-          image: saijalchauhan/swiss:v1
-          imagePullPolicy: Always #IfNotPresent
+          image: {{ .Values.image.repository }}
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8000
           env:

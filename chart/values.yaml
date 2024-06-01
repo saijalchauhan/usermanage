@@ -1,8 +1,8 @@
 replicaCount: 1
 
+
 image:
-  repository: your-docker-username/my-cool-service
-  tag: latest
+  repository: saijalchauhan/swiss:v1
   pullPolicy: IfNotPresent
 
 service:
