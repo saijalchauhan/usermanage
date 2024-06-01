@@ -63,6 +63,7 @@ helm install <release-name> swisscom-helm/user_manage --version 0.1.0 -n <namesp
 
 ### Step 3: Port forward the service using minkube command
 
+Get minikube-endpoint:
 ```bash
 minikube service <usermanage-service-name> --url -n <namespace>
 ```
@@ -71,6 +72,12 @@ minikube service <usermanage-service-name> --url -n <namespace>
 
 Use these commands to test API functionality
 
+Read:
 ```bash
 curl -H "Authorization: user_token" http://<minikube-endpoint>/api/users
+```
+
+Wrie
+```bash
+curl -X POST -d '{"name": "new user1", "email": "newuser1@example.com"}' -H "Authorization: admin_token" -H "Content-Type: application/json"  http://<minikube-endpoint>/api/users
 ```
