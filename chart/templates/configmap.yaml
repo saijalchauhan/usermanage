@@ -23,4 +23,4 @@ data:
         input.action = "read"
     }
 
-  OPA_URL: "http://localhost:8181/v1/data/usermanage/authz"
+  OPA_URL: "http://opa:8181/v1/data/usermanage/authz"

@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: opa
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: opa
+  template:
+    metadata:
+      labels:
+        app: opa
+    spec:
+      containers:
+        - name: opa
+          image: "{{ .Values.opa.image.repository }}:{{ .Values.opa.image.tag }}"
+          imagePullPolicy: {{ .Values.opa.image.pullPolicy }}
+          ports:
+            - containerPort: 8181
+          command:
+            - "opa"
+            - "run"
+            - "--server"
+            - "/policies/policy.rego"
+          volumeMounts:
+            - name: opa-policies
+              mountPath: /policies
+      volumes:
+        - name: opa-policies
+          configMap:
+            name: {{ .Release.Name }}-opa-policies
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: opa
+spec:
+  type: {{ .Values.opa.service.type }}
+  ports:
+    - port: {{ .Values.opa.service.port }}
+      targetPort: 8181
+  selector:
+    app: opa

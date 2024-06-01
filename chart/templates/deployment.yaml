@@ -14,8 +14,8 @@ spec:
     spec:
       containers:
         - name: usermanage
-          image: {{ .Values.image.repository }}
-          imagePullPolicy: IfNotPresent
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: 8000
           env:
@@ -35,20 +35,5 @@ spec:
                   name: {{ .Release.Name }}-opa-policies
                   key: OPA_URL
 
-        - name: opa
-          image: {{ .Values.opa.image.repository }}
-          imagePullPolicy: IfNotPresent
-          command:
-            - "opa"
-            - "run"
-            - "--server"
-            - "/policies/policy.rego"
-          volumeMounts:
-            - name: opa-policies
-              mountPath: /policies
-          ports:
-            - containerPort: 8181
-      volumes:
-        - name: opa-policies
-          configMap:
-            name: {{ .Release.Name }}-opa-policies
+
+
