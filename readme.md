@@ -19,11 +19,16 @@ This project is a simple REST API service for managing users. It includes two en
 - Open Policy Agent (OPA)
 
 ### Simplified Implementation Details
+
 For simplicity, we are using an in-memory database to store users.
+
 Authentication is implemented via dummy tokens.
+
 Example tokens:
-user_token: Represents an authenticated user with a regular role.
-admin_token: Represents an authenticated user with an admin role.
+
+- user_token: Represents an authenticated user with a regular role.
+
+- admin_token: Represents an authenticated user with an admin role.
 
 ## Setup Instructions
 
